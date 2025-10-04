@@ -84,6 +84,24 @@
     box-shadow: 0 0 0 4px rgba(0, 150, 15, 0.1);
 }
 
+.input-group input.input-error {
+    border-color: #dc2626;
+}
+
+.error-message {
+    display: block;
+    color: #dc2626;
+    font-size: 12px;
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+.login-hint {
+    text-align: center;
+    margin-top: 16px;
+    color: #666;
+}
+
 .login-button {
     width: 100%;
     padding: 16px;
