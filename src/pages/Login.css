@@ -1,0 +1,144 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #ffffff;
+    padding: 20px;
+}
+
+.login-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 96, 10, 0.1);
+    padding: 48px;
+    width: 100%;
+    max-width: 440px;
+    border: 1px solid rgba(0, 150, 15, 0.1);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.logo-icon {
+    font-size: 64px;
+    color: #00960f;
+    margin-bottom: 16px;
+    font-weight: 300;
+}
+
+.login-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #00600a;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.5px;
+}
+
+.login-subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    color: #00960f;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.login-form {
+    margin-bottom: 24px;
+}
+
+.input-group {
+    margin-bottom: 24px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #00600a;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    border: 2px solid rgba(0, 150, 15, 0.2);
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    color: #333;
+}
+
+.input-group input::placeholder {
+    color: #999;
+}
+
+.input-group input:focus {
+    border-color: #00960f;
+    box-shadow: 0 0 0 4px rgba(0, 150, 15, 0.1);
+}
+
+.login-button {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+    background: linear-gradient(135deg, #00960f 0%, #00600a 100%);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.login-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 150, 15, 0.3);
+}
+
+.login-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(0, 150, 15, 0.2);
+}
+
+.login-footer {
+    text-align: center;
+}
+
+.forgot-password {
+    font-size: 14px;
+    color: #00960f;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: #00600a;
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: 32px 24px;
+    }
+    
+    .login-title {
+        font-size: 28px;
+    }
+    
+    .logo-icon {
+        font-size: 48px;
+    }
+}
+
