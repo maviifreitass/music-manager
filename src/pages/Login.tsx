@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { IoMusicalNotes } from "react-icons/io5";
 import { login } from "../redux/authSlice";
 import "./Login.css";
 
@@ -51,7 +52,7 @@ function Login() {
         <div className="login-container">
             <div className="login-card">
                 <div className="login-header">
-                    <div className="logo-icon">♪</div>
+                    <div className="logo-icon"><IoMusicalNotes /></div>
                     <h1 className="login-title">Music Manager</h1>
                     <p className="login-subtitle">SUA INTERFACE MUSICAL</p>
                 </div>
