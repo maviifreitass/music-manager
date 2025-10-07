@@ -1,0 +1,208 @@
+.playlists-page {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.playlists-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.playlists-header h1 {
+    font-size: 2.5rem;
+    color: #00600a;
+    margin: 0;
+}
+
+.btn-create {
+    background-color: #00960f;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-create:hover {
+    background-color: #00600a;
+    transform: translateY(-2px);
+}
+
+.playlists-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.empty-state p {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 0.5rem 0;
+}
+
+.playlist-detail {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.playlist-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e5e5e5;
+}
+
+.playlist-detail-header h2 {
+    font-size: 2rem;
+    color: #00600a;
+    margin: 0 0 0.5rem 0;
+}
+
+.playlist-detail-header p {
+    color: #666;
+    margin: 0;
+}
+
+.btn-back {
+    background-color: #6b7280;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: #4b5563;
+}
+
+.empty-playlist {
+    text-align: center;
+    padding: 3rem;
+    color: #666;
+}
+
+.music-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.modal h2 {
+    font-size: 1.5rem;
+    color: #00600a;
+    margin: 0 0 1.5rem 0;
+}
+
+.modal-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e5e5e5;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    margin-bottom: 1.5rem;
+    box-sizing: border-box;
+}
+
+.modal-input:focus {
+    border-color: #00960f;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.btn-cancel,
+.btn-save {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-cancel {
+    background-color: #e5e5e5;
+    color: #333;
+}
+
+.btn-cancel:hover {
+    background-color: #d4d4d4;
+}
+
+.btn-save {
+    background-color: #00960f;
+    color: white;
+}
+
+.btn-save:hover {
+    background-color: #00600a;
+}
+
+@media (max-width: 768px) {
+    .playlists-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .playlists-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .music-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .playlist-detail-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+}
+

@@ -1,0 +1,248 @@
+.playlist-select-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.playlist-select-modal {
+    background: white;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.playlist-select-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 2px solid #e5e5e5;
+}
+
+.playlist-select-header h2 {
+    font-size: 1.5rem;
+    color: #00600a;
+    margin: 0;
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.playlist-select-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+
+.selected-music {
+    background-color: #f0f9f1;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    color: #00600a;
+    font-size: 0.95rem;
+}
+
+.selected-music strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.no-playlists {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+}
+
+.no-playlists p {
+    margin: 0.5rem 0;
+}
+
+.playlists-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.playlists-label {
+    font-weight: 600;
+    color: #00600a;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.playlist-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border: 2px solid #e5e5e5;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.playlist-option:hover {
+    border-color: #00960f;
+    background-color: #f0f9f1;
+    transform: translateX(4px);
+}
+
+.playlist-option.selected {
+    border-color: #00960f;
+    background-color: #f0f9f1;
+    box-shadow: 0 2px 8px rgba(0, 150, 15, 0.2);
+}
+
+.playlist-option-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.playlist-option-name {
+    font-weight: 600;
+    color: #00600a;
+    font-size: 1rem;
+}
+
+.playlist-option-count {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.playlist-option-radio {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #d4d4d4;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.playlist-option.selected .playlist-option-radio {
+    border-color: #00960f;
+    background-color: #00960f;
+}
+
+.radio-checked {
+    color: white;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.playlist-select-actions {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-top: 2px solid #e5e5e5;
+}
+
+.btn-cancel-modal,
+.btn-confirm-modal {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-cancel-modal {
+    background-color: #e5e5e5;
+    color: #333;
+}
+
+.btn-cancel-modal:hover {
+    background-color: #d4d4d4;
+}
+
+.btn-confirm-modal {
+    background-color: #00960f;
+    color: white;
+}
+
+.btn-confirm-modal:hover:not(:disabled) {
+    background-color: #00600a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 150, 15, 0.3);
+}
+
+.btn-confirm-modal:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+    .playlist-select-modal {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .playlist-select-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .playlist-select-actions {
+        flex-direction: column;
+    }
+}
+
