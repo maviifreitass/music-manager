@@ -184,6 +184,292 @@
     background-color: #00600a;
 }
 
+/* Novo Modal de Criar/Editar Playlist */
+.modal-playlist-create {
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.modal-header h2 {
+    font-size: 1.5rem;
+    color: #00600a;
+    margin: 0;
+}
+
+.btn-close-modal {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.btn-close-modal svg {
+    width: 24px;
+    height: 24px;
+}
+
+.btn-close-modal:hover {
+    color: #dc2626;
+    background: #fee;
+}
+
+.modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+}
+
+.form-section {
+    margin-bottom: 2rem;
+}
+
+.form-section label {
+    display: block;
+    font-weight: 600;
+    color: #00600a;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+.no-music-text {
+    color: #999;
+    font-style: italic;
+    margin: 0;
+}
+
+/* Lista de Músicas Selecionadas */
+.selected-musics-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 0.5rem;
+    background: #f9fafb;
+    border-radius: 8px;
+}
+
+.selected-music-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: white;
+    border: 2px solid #e5e5e5;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.selected-music-item:hover {
+    border-color: #00960f;
+    box-shadow: 0 2px 8px rgba(0, 150, 15, 0.15);
+}
+
+.music-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+}
+
+.music-name {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.music-artist {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.btn-remove-music {
+    background: #fee;
+    border: 2px solid #fee;
+    color: #dc2626;
+    min-width: 36px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.3rem;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.btn-remove-music svg {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-remove-music:hover {
+    background: #dc2626;
+    color: white;
+    border-color: #dc2626;
+    transform: scale(1.1);
+}
+
+/* Busca de Músicas */
+.search-music-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.search-music-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e5e5e5;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.search-music-input:focus {
+    border-color: #00960f;
+}
+
+.btn-search-music {
+    background: #00960f;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    min-width: 50px;
+}
+
+.btn-search-music svg {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-search-music:hover:not(:disabled) {
+    background: #00600a;
+    transform: translateY(-2px);
+}
+
+.btn-search-music:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Lista de Resultados da Busca */
+.search-results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 0.5rem;
+    background: #f9fafb;
+    border-radius: 8px;
+}
+
+.search-result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: white;
+    border: 2px solid #e5e5e5;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.search-result-item:hover {
+    border-color: #00960f;
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(0, 150, 15, 0.15);
+}
+
+.search-result-item.selected {
+    background: #f0f9f1;
+    border-color: #00960f;
+}
+
+.btn-add-music {
+    background: #e8f5e9;
+    border: 2px solid #00960f;
+    color: #00960f;
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.btn-add-music svg {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-add-music:hover {
+    background: #00960f;
+    color: white;
+    transform: scale(1.1);
+}
+
+.btn-add-music.selected {
+    background: #00960f;
+    color: white;
+}
+
+.btn-add-music.selected:hover {
+    background: #00600a;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    border-top: 2px solid #f0f0f0;
+}
+
 @media (max-width: 768px) {
     .playlists-header {
         flex-direction: column;
@@ -203,6 +489,25 @@
         flex-direction: column;
         align-items: stretch;
         gap: 1rem;
+    }
+
+    .modal-playlist-create {
+        max-width: 95%;
+        max-height: 95vh;
+    }
+
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: 1rem;
+    }
+
+    .search-music-bar {
+        flex-direction: column;
+    }
+
+    .btn-search-music {
+        width: 100%;
     }
 }
 

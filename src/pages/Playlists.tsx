@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { IoSearch, IoClose, IoAdd, IoCheckmark } from "react-icons/io5";
 import Layout from "../components/Layout";
 import PlaylistCard from "../components/PlaylistCard";
 import MusicCard from "../components/MusicCard";
-import type { Playlist } from "../redux/playlistsSlice";
+import type { Playlist, Music } from "../redux/playlistsSlice";
 import { addPlaylist, updatePlaylist, deletePlaylist, addMusicToPlaylist, removeMusicFromPlaylist } from "../redux/playlistsSlice";
 import type { RootState } from "../redux/store";
+import { audioDbApi, type AudioDbTrack } from "../services/audioDbApi";
 import "./Playlists.css";
 
 const Playlists = () => {
@@ -20,6 +22,11 @@ const Playlists = () => {
     const [editingPlaylist, setEditingPlaylist] = useState<Playlist | null>(null);
     const [playlistName, setPlaylistName] = useState("");
     const [viewingPlaylist, setViewingPlaylist] = useState<Playlist | null>(null);
+    
+    const [searchQuery, setSearchQuery] = useState("");
+    const [searchResults, setSearchResults] = useState<Music[]>([]);
+    const [loadingSearch, setLoadingSearch] = useState(false);
+    const [selectedMusics, setSelectedMusics] = useState<Music[]>([]);
 
     useEffect(() => {
         // Check for pending music add from sessionStorage
@@ -35,12 +42,18 @@ const Playlists = () => {
     const handleCreatePlaylist = () => {
         setEditingPlaylist(null);
         setPlaylistName("");
+        setSelectedMusics([]);
+        setSearchQuery("");
+        setSearchResults([]);
         setShowModal(true);
     };
 
     const handleEditPlaylist = (playlist: Playlist) => {
         setEditingPlaylist(playlist);
         setPlaylistName(playlist.nome);
+        setSelectedMusics([...playlist.musicas]);
+        setSearchQuery("");
+        setSearchResults([]);
         setShowModal(true);
     };
 
@@ -51,18 +64,71 @@ const Playlists = () => {
         }
 
         if (editingPlaylist) {
-            dispatch(updatePlaylist({ ...editingPlaylist, nome: playlistName }));
+            dispatch(updatePlaylist({ 
+                ...editingPlaylist, 
+                nome: playlistName,
+                musicas: selectedMusics 
+            }));
         } else {
             dispatch(addPlaylist({
                 nome: playlistName,
                 usuarioId: user || "",
-                musicas: [],
+                musicas: selectedMusics,
             }));
         }
 
         setShowModal(false);
         setPlaylistName("");
         setEditingPlaylist(null);
+        setSelectedMusics([]);
+        setSearchQuery("");
+        setSearchResults([]);
+    };
+
+    const handleSearchMusic = async () => {
+        if (!searchQuery.trim()) {
+            alert("Digite o nome de um artista para buscar!");
+            return;
+        }
+
+        setLoadingSearch(true);
+        try {
+            const tracks = await audioDbApi.getTopTracks(searchQuery);
+            const formattedTracks = tracks.map(convertToMusic);
+            setSearchResults(formattedTracks);
+        } catch (err) {
+            console.error("Erro ao buscar músicas:", err);
+            alert("Erro ao buscar músicas. Tente novamente.");
+        } finally {
+            setLoadingSearch(false);
+        }
+    };
+
+    const convertToMusic = (track: AudioDbTrack): Music => ({
+        id: track.idTrack,
+        nome: track.strTrack,
+        artista: track.strArtist,
+        genero: track.strGenre || "Desconhecido",
+        ano: track.intYearReleased || "N/A",
+        album: track.strAlbum,
+        thumb: track.strTrackThumb,
+    });
+
+    const handleAddMusicToSelection = (music: Music) => {
+        const alreadySelected = selectedMusics.some(m => m.id === music.id);
+        if (alreadySelected) {
+            alert("Esta música já foi adicionada!");
+            return;
+        }
+        setSelectedMusics([...selectedMusics, music]);
+    };
+
+    const handleRemoveMusicFromSelection = (musicId: string) => {
+        setSelectedMusics(selectedMusics.filter(m => m.id !== musicId));
+    };
+
+    const isMusicSelected = (musicId: string) => {
+        return selectedMusics.some(m => m.id === musicId);
     };
 
     const handleDeletePlaylist = (playlistId: string) => {
@@ -155,22 +221,112 @@ const Playlists = () => {
 
                 {showModal && (
                     <div className="modal-overlay" onClick={() => setShowModal(false)}>
-                        <div className="modal" onClick={(e) => e.stopPropagation()}>
-                            <h2>{editingPlaylist ? "Editar Playlist" : "Nova Playlist"}</h2>
-                            <input
-                                type="text"
-                                placeholder="Nome da playlist"
-                                value={playlistName}
-                                onChange={(e) => setPlaylistName(e.target.value)}
-                                className="modal-input"
-                                autoFocus
-                            />
-                            <div className="modal-actions">
+                        <div className="modal-playlist-create" onClick={(e) => e.stopPropagation()}>
+                            <div className="modal-header">
+                                <h2>{editingPlaylist ? "Editar Playlist" : "Nova Playlist"}</h2>
+                                <button onClick={() => setShowModal(false)} className="btn-close-modal">
+                                    <IoClose />
+                                </button>
+                            </div>
+
+                            <div className="modal-body">
+                                {/* Nome da Playlist */}
+                                <div className="form-section">
+                                    <label>Nome da Playlist</label>
+                                    <input
+                                        type="text"
+                                        placeholder="Ex: Minhas favoritas"
+                                        value={playlistName}
+                                        onChange={(e) => setPlaylistName(e.target.value)}
+                                        className="modal-input"
+                                        autoFocus
+                                    />
+                                </div>
+
+                                {/* Músicas Selecionadas */}
+                                <div className="form-section">
+                                    <label>Músicas Selecionadas ({selectedMusics.length})</label>
+                                    {selectedMusics.length === 0 ? (
+                                        <p className="no-music-text">Nenhuma música selecionada ainda</p>
+                                    ) : (
+                                        <div className="selected-musics-list">
+                                            {selectedMusics.map((music) => (
+                                                <div key={music.id} className="selected-music-item">
+                                                    <div className="music-info">
+                                                        <span className="music-name">{music.nome}</span>
+                                                        <span className="music-artist">{music.artista}</span>
+                                                    </div>
+                                                    <button 
+                                                        onClick={() => handleRemoveMusicFromSelection(music.id)}
+                                                        className="btn-remove-music"
+                                                        title="Remover"
+                                                    >
+                                                        <IoClose />
+                                                    </button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Busca de Músicas */}
+                                <div className="form-section">
+                                    <label>Adicionar Músicas da API</label>
+                                    <div className="search-music-bar">
+                                        <input
+                                            type="text"
+                                            placeholder="Buscar por artista (ex: Coldplay)"
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                            onKeyPress={(e) => e.key === "Enter" && handleSearchMusic()}
+                                            className="search-music-input"
+                                        />
+                                        <button 
+                                            onClick={handleSearchMusic} 
+                                            className="btn-search-music"
+                                            disabled={loadingSearch}
+                                        >
+                                            {loadingSearch ? "..." : <IoSearch />}
+                                        </button>
+                                    </div>
+
+                                    {searchResults.length > 0 && (
+                                        <div className="search-results-list">
+                                            {searchResults.map((music) => {
+                                                const isSelected = isMusicSelected(music.id);
+                                                return (
+                                                    <div 
+                                                        key={music.id} 
+                                                        className={`search-result-item ${isSelected ? "selected" : ""}`}
+                                                    >
+                                                        <div className="music-info">
+                                                            <span className="music-name">{music.nome}</span>
+                                                            <span className="music-artist">{music.artista}</span>
+                                                        </div>
+                                                        <button 
+                                                            onClick={() => isSelected 
+                                                                ? handleRemoveMusicFromSelection(music.id)
+                                                                : handleAddMusicToSelection(music)
+                                                            }
+                                                            className={`btn-add-music ${isSelected ? "selected" : ""}`}
+                                                            title={isSelected ? "Remover" : "Adicionar"}
+                                                        >
+                                                            {isSelected ? <IoCheckmark /> : <IoAdd />}
+                                                        </button>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="modal-footer">
                                 <button onClick={() => setShowModal(false)} className="btn-cancel">
                                     Cancelar
                                 </button>
                                 <button onClick={handleSavePlaylist} className="btn-save">
-                                    Salvar
+                                    {editingPlaylist ? "Salvar Alterações" : "Criar Playlist"}
                                 </button>
                             </div>
                         </div>
