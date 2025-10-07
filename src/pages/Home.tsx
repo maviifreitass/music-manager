@@ -29,7 +29,6 @@ const Home = () => {
         setLoading(true);
         setError(null);
         try {
-            // Get trending tracks from iTunes US
             const tracks = await audioDbApi.getTrending("us", "itunes", "singles");
             const formattedTracks = tracks.slice(0, 10).map(convertTrendingToMusic);
             setPopularTracks(formattedTracks);
@@ -67,7 +66,7 @@ const Home = () => {
         <Layout>
             <div className="home-page">
                 <div className="home-header">
-                    <h1>Top 10 Músicas Mais Ouvidas</h1>
+                    <h1>Top 3 Músicas Mais Ouvidas</h1>
                     <p className="home-subtitle">As músicas em alta no iTunes US</p>
                 </div>
 

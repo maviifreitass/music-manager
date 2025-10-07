@@ -1,5 +1,6 @@
 import type { Playlist } from "../redux/playlistsSlice";
 import "./PlaylistCard.css";
+import React from "react";
 
 interface PlaylistCardProps {
     playlist: Playlist;

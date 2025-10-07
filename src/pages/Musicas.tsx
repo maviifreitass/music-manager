@@ -34,6 +34,80 @@ const Musicas = () => {
     const [isAlbumDetailOpen, setIsAlbumDetailOpen] = useState(false);
     const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
 
+    const resetSearchState = () => {
+        setLoading(true);
+        setError(null);
+        setSearchResults([]);
+        setAlbumResults([]);
+        setArtistInfo(null);
+        setSelectedAlbum(null);
+    };
+
+    const searchArtistInfo = async (): Promise<AudioDbArtist | null> => {
+        const artists = await audioDbApi.searchArtist(searchQuery);
+        
+        if (artists.length === 0) {
+            setError("Artista não encontrado. Tente outro nome.");
+            return null;
+        }
+
+        const artist = artists[0];
+        setArtistInfo(artist);
+        return artist;
+    };
+
+    const searchArtistTracks = async () => {
+        const tracks = trackName.trim()
+            ? await audioDbApi.searchTrack(searchQuery, trackName)
+            : await audioDbApi.getTopTracks(searchQuery);
+        
+        if (tracks.length === 0) {
+            const errorMsg = trackName.trim()
+                ? "Nenhuma música encontrada com esse nome para este artista."
+                : "Nenhuma música encontrada para este artista.";
+            setError(errorMsg);
+            return;
+        }
+
+        const formattedTracks = tracks.map(convertToMusic);
+        setSearchResults(formattedTracks);
+    };
+
+    const searchArtistAlbums = async () => {
+        const albums = await audioDbApi.searchAlbum(searchQuery);
+        
+        if (albums.length === 0) {
+            setError("Nenhum álbum encontrado para este artista.");
+            return;
+        }
+
+        const formattedAlbums = albums.map(convertToAlbum);
+        setAlbumResults(formattedAlbums);
+    };
+
+    const searchSpecificTrack = async () => {
+        const tracks = await audioDbApi.searchTrack(searchQuery, trackName);
+        
+        if (tracks.length === 0) {
+            setError("Nenhuma música encontrada. Tente outro termo de busca.");
+            return;
+        }
+
+        const formattedTracks = tracks.map(convertToMusic);
+        setSearchResults(formattedTracks);
+    };
+
+    const handleSearchByArtist = async () => {
+        const artist = await searchArtistInfo();
+        if (!artist) return;
+
+        if (contentType === "tracks") {
+            await searchArtistTracks();
+        } else {
+            await searchArtistAlbums();
+        }
+    };
+
     const handleSearch = async (e: React.FormEvent) => {
         e.preventDefault();
         
@@ -42,54 +116,13 @@ const Musicas = () => {
             return;
         }
 
-        setLoading(true);
-        setError(null);
-        setSearchResults([]);
-        setAlbumResults([]);
-        setArtistInfo(null);
-        setSelectedAlbum(null);
+        resetSearchState();
 
         try {
             if (searchType === "artist") {
-                // Primeiro busca informações do artista usando search.php
-                const artists = await audioDbApi.searchArtist(searchQuery);
-                
-                if (artists.length === 0) {
-                    setError("Artista não encontrado. Tente outro nome.");
-                    return;
-                }
-
-                const artist = artists[0];
-                setArtistInfo(artist);
-
-                if (contentType === "tracks") {
-                    // Busca as top 10 músicas do artista
-                    const tracks = await audioDbApi.getTopTracks(searchQuery);
-                    if (tracks.length === 0) {
-                        setError("Nenhuma música encontrada para este artista.");
-                    } else {
-                        const formattedTracks = tracks.map(convertToMusic);
-                        setSearchResults(formattedTracks);
-                    }
-                } else {
-                    // Busca álbuns do artista
-                    const albums = await audioDbApi.searchAlbum(searchQuery);
-                    if (albums.length === 0) {
-                        setError("Nenhum álbum encontrado para este artista.");
-                    } else {
-                        const formattedAlbums = albums.map(convertToAlbum);
-                        setAlbumResults(formattedAlbums);
-                    }
-                }
+                await handleSearchByArtist();
             } else {
-                // Busca música específica
-                const tracks = await audioDbApi.searchTrack(searchQuery, trackName);
-                if (tracks.length === 0) {
-                    setError("Nenhuma música encontrada. Tente outro termo de busca.");
-                } else {
-                    const formattedTracks = tracks.map(convertToMusic);
-                    setSearchResults(formattedTracks);
-                }
+                await searchSpecificTrack();
             }
         } catch (err) {
             setError("Erro ao buscar. Tente novamente.");
@@ -194,6 +227,7 @@ const Musicas = () => {
                                             setContentType(e.target.value as "tracks");
                                             setSearchResults([]);
                                             setAlbumResults([]);
+                                            setTrackName("");
                                         }}
                                     />
                                     Ver Músicas
@@ -207,6 +241,7 @@ const Musicas = () => {
                                             setContentType(e.target.value as "albums");
                                             setSearchResults([]);
                                             setAlbumResults([]);
+                                            setTrackName("");
                                         }}
                                     />
                                     Ver Álbuns
@@ -222,6 +257,19 @@ const Musicas = () => {
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 className="search-input"
                             />
+                            
+                            {searchType === "artist" && contentType === "tracks" && (
+                                <div className="search-input-wrapper">
+                                    <input
+                                        type="text"
+                                        placeholder="Nome da música (ex: Yellow)"
+                                        value={trackName}
+                                        onChange={(e) => setTrackName(e.target.value)}
+                                        className="search-input optional-input"
+                                    />
+                                    <span className="optional-badge">Opcional</span>
+                                </div>
+                            )}
                             
                             {searchType === "track" && (
                                 <input

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Layout from "../components/Layout";
 import PlaylistCard from "../components/PlaylistCard";
 import MusicCard from "../components/MusicCard";
-import type { Playlist, Music } from "../redux/playlistsSlice";
+import type { Playlist } from "../redux/playlistsSlice";
 import { addPlaylist, updatePlaylist, deletePlaylist, addMusicToPlaylist, removeMusicFromPlaylist } from "../redux/playlistsSlice";
 import type { RootState } from "../redux/store";
 import "./Playlists.css";

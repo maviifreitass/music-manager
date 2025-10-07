@@ -131,6 +131,91 @@
 
 .login-footer {
     text-align: center;
+    margin-top: 2rem;
+}
+
+.test-users {
+    background: linear-gradient(135deg, #f0f9f1 0%, #e8f5e9 100%);
+    border: 2px solid #c8e6c9;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.test-users-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #00600a;
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.test-users-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.test-user-button {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: white;
+    border: 2px solid #a5d6a7;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.test-user-button:hover {
+    background: #f1f8e9;
+    border-color: #00960f;
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(0, 150, 15, 0.2);
+}
+
+.test-user-button:active {
+    transform: translateX(2px);
+}
+
+.user-icon {
+    font-size: 1.5rem;
+    color: #00960f;
+    min-width: 24px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    flex: 1;
+}
+
+.user-name {
+    font-weight: 600;
+    color: #00600a;
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+}
+
+.user-email {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.test-users-note {
+    font-size: 0.85rem;
+    color: #00600a;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 .forgot-password {
@@ -157,6 +242,18 @@
     
     .logo-icon {
         font-size: 48px;
+    }
+
+    .test-users {
+        padding: 1rem;
+    }
+
+    .test-user-button {
+        padding: 0.75rem;
+    }
+
+    .user-icon {
+        font-size: 1.25rem;
     }
 }
 

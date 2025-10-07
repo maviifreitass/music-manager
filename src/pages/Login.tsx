@@ -5,8 +5,12 @@ import { IoMusicalNotes } from "react-icons/io5";
 import { login } from "../redux/authSlice";
 import "./Login.css";
 
-const VALID_EMAIL = "usuario@teste.com";
-const VALID_PASSWORD = "123456";
+const VALID_USERS = [
+    { email: "usuario@teste.com", password: "123456", name: "João Silva" },
+    { email: "maria@teste.com", password: "123456", name: "Maria Santos" },
+];
+
+type ValidationErrors = { email?: string; password?: string };
 
 function Login() {
     const dispatch = useDispatch();
@@ -14,31 +18,48 @@ function Login() {
     
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+    const [errors, setErrors] = useState<ValidationErrors>({});
 
     const validateEmail = (email: string): boolean => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     };
 
+    const getEmailError = (email: string): string | undefined => {
+        if (!validateEmail(email)) return "Formato de e-mail inválido";
+        
+        const userExists = VALID_USERS.some(user => user.email === email);
+        if (!userExists) return "E-mail não cadastrado";
+        
+        return undefined;
+    };
+
+    const getPasswordError = (email: string, password: string): string | undefined => {
+        if (password.length < 6) return "A senha deve ter no mínimo 6 caracteres";
+        
+        const user = VALID_USERS.find(user => user.email === email);
+        if (user && user.password !== password) return "Senha incorreta";
+        
+        return undefined;
+    };
+
+    const validateForm = (): ValidationErrors => {
+        const emailError = getEmailError(email);
+        const passwordError = getPasswordError(email, password);
+
+        return {
+            ...(emailError && { email: emailError }),
+            ...(passwordError && { password: passwordError }),
+        };
+    };
+
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
-        const newErrors: { email?: string; password?: string } = {};
-
-        if (!validateEmail(email)) {
-            newErrors.email = "Formato de e-mail inválido";
-        } else if (email !== VALID_EMAIL) {
-            newErrors.email = "E-mail incorreto";
-        }
-
-        if (password.length < 6) {
-            newErrors.password = "A senha deve ter no mínimo 6 caracteres";
-        } else if (password !== VALID_PASSWORD) {
-            newErrors.password = "Senha incorreta";
-        }
-
-        if (Object.keys(newErrors).length > 0) {
-            setErrors(newErrors);
+        
+        const validationErrors = validateForm();
+        
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
             return;
         }
 
@@ -87,14 +108,8 @@ function Login() {
                     <button type="submit" className="login-button">
                         Entrar
                     </button>
-                    
-                    <div className="login-hint">
-                        <small>Dica: usuario@teste.com / 123456</small>
-                    </div>
                 </form>
 
-                <div className="login-footer">
-                </div>
             </div>
         </div>
     );
