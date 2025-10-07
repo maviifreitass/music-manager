@@ -1,0 +1,250 @@
+.album-detail-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    animation: fadeIn 0.2s ease;
+}
+
+.album-detail-modal {
+    background: white;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+    overflow: hidden;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.album-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 2px solid #e5e5e5;
+    background: linear-gradient(135deg, #00960f 0%, #00600a 100%);
+    color: white;
+}
+
+.album-detail-header h2 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.modal-close-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.album-detail-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+}
+
+.album-detail-cover {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto 2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.album-detail-cover img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.album-detail-placeholder {
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.album-icon {
+    font-size: 6rem;
+    opacity: 0.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.album-icon svg {
+    font-size: 8rem;
+}
+
+.album-detail-info {
+    text-align: center;
+}
+
+.album-detail-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #00600a;
+    margin: 0 0 1rem 0;
+}
+
+.album-detail-artist {
+    font-size: 1.2rem;
+    color: #666;
+    margin: 0 0 2rem 0;
+}
+
+.album-detail-artist strong {
+    color: #00600a;
+}
+
+.album-detail-meta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.meta-item {
+    background-color: #f0f9f1;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    border: 2px solid #e0f2e0;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.meta-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #00600a;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.meta-label svg {
+    font-size: 1.1rem;
+}
+
+.meta-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.album-detail-note {
+    background: linear-gradient(135deg, #fff9e6 0%, #fff3cc 100%);
+    border-left: 4px solid #ffc107;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+}
+
+.album-detail-note p {
+    margin: 0;
+    color: #856404;
+    line-height: 1.6;
+}
+
+.album-detail-footer {
+    padding: 1.5rem;
+    border-top: 2px solid #e5e5e5;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-close-detail {
+    padding: 0.75rem 2rem;
+    background-color: #00960f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-close-detail:hover {
+    background-color: #00600a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 150, 15, 0.3);
+}
+
+@media (max-width: 480px) {
+    .album-detail-modal {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .album-detail-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .album-detail-title {
+        font-size: 1.5rem;
+    }
+
+    .album-detail-meta {
+        flex-direction: column;
+    }
+
+    .meta-item {
+        width: 100%;
+    }
+
+    .album-detail-content {
+        padding: 1.5rem;
+    }
+}
+

@@ -1,0 +1,87 @@
+.artist-info {
+    background: linear-gradient(135deg, #00960f 0%, #00600a 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    color: white;
+    box-shadow: 0 4px 16px rgba(0, 150, 15, 0.3);
+}
+
+.artist-info-header {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.artist-thumb {
+    width: 150px;
+    height: 150px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.artist-details {
+    flex: 1;
+}
+
+.artist-name {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    color: white;
+}
+
+.artist-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.artist-genre,
+.artist-country,
+.artist-year {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.artist-genre svg,
+.artist-country svg,
+.artist-year svg {
+    font-size: 1rem;
+}
+
+.artist-bio {
+    line-height: 1.6;
+    margin: 0;
+    opacity: 0.95;
+}
+
+@media (max-width: 768px) {
+    .artist-info-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .artist-thumb {
+        width: 120px;
+        height: 120px;
+    }
+
+    .artist-name {
+        font-size: 1.5rem;
+    }
+
+    .artist-meta {
+        justify-content: center;
+    }
+}
+
