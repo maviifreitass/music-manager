@@ -72,14 +72,12 @@ export interface SearchAlbumResponse {
 }
 
 export const audioDbApi = {
-    // Busca informações do artista - retorna dados como bio, foto, país, etc
     searchArtist: async (artistName: string): Promise<AudioDbArtist[]> => {
         const response = await fetch(`${BASE_URL}/${API_KEY}/search.php?s=${encodeURIComponent(artistName)}`);
         const data: SearchArtistResponse = await response.json();
         return data.artists || [];
     },
 
-    // Busca músicas específicas por nome do artista e opcionalmente nome da música
     searchTrack: async (artistName: string, trackName?: string): Promise<AudioDbTrack[]> => {
         let url = `${BASE_URL}/${API_KEY}/searchtrack.php?s=${encodeURIComponent(artistName)}`;
         if (trackName) {
@@ -88,24 +86,6 @@ export const audioDbApi = {
         const response = await fetch(url);
         const data: SearchTrackResponse = await response.json();
         return data.track || [];
-    },
-
-    // Método melhorado: busca artista e suas músicas em uma chamada integrada
-    searchArtistWithTracks: async (artistName: string): Promise<{
-        artist: AudioDbArtist | null;
-        tracks: AudioDbTrack[];
-    }> => {
-        // Primeiro busca o artista
-        const artists = await audioDbApi.searchArtist(artistName);
-        const artist = artists.length > 0 ? artists[0] : null;
-
-        // Se encontrar o artista, busca suas top 10 músicas
-        let tracks: AudioDbTrack[] = [];
-        if (artist) {
-            tracks = await audioDbApi.getTopTracks(artistName);
-        }
-
-        return { artist, tracks };
     },
 
     searchAlbum: async (artistName: string, albumName?: string): Promise<AudioDbAlbum[]> => {
@@ -120,12 +100,6 @@ export const audioDbApi = {
 
     getTopTracks: async (artistName: string): Promise<AudioDbTrack[]> => {
         const response = await fetch(`${BASE_URL}/${API_KEY}/track-top10.php?s=${encodeURIComponent(artistName)}`);
-        const data: TopTracksResponse = await response.json();
-        return data.track || [];
-    },
-
-    getMostLoved: async (format: "track" | "album" = "track"): Promise<AudioDbTrack[]> => {
-        const response = await fetch(`${BASE_URL}/${API_KEY}/mostloved.php?format=${format}`);
         const data: TopTracksResponse = await response.json();
         return data.track || [];
     },
