@@ -1,0 +1,111 @@
+.music-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.music-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 150, 15, 0.2);
+}
+
+.music-card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+}
+
+.music-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.music-card-content {
+    padding: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.music-card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #00600a;
+    margin: 0 0 0.5rem 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.music-card-artist {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0 0 0.75rem 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.music-card-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    margin-top: auto;
+}
+
+.music-card-album,
+.music-card-genre,
+.music-card-year {
+    padding: 0.25rem 0.5rem;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    color: #555;
+}
+
+.music-card-actions {
+    padding: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    margin-top: auto;
+    border-top: 1px solid #f0f0f0;
+}
+
+.btn-add,
+.btn-remove {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-add {
+    background-color: #00960f;
+    color: white;
+}
+
+.btn-add:hover {
+    background-color: #00600a;
+    transform: translateY(-2px);
+}
+
+.btn-remove {
+    background-color: #dc2626;
+    color: white;
+}
+
+.btn-remove:hover {
+    background-color: #b91c1c;
+    transform: translateY(-2px);
+}
+
