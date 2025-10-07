@@ -1,0 +1,73 @@
+.home-page {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.home-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.home-header h1 {
+    font-size: 2.5rem;
+    color: #00600a;
+    margin: 0 0 0.5rem 0;
+}
+
+.home-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 0;
+}
+
+.music-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.loading {
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.error-message {
+    background-color: #fee;
+    border: 1px solid #fcc;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.error-message p {
+    color: #c00;
+    margin: 0 0 1rem 0;
+}
+
+.btn-retry {
+    background-color: #00960f;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-retry:hover {
+    background-color: #00600a;
+}
+
+@media (max-width: 768px) {
+    .home-header h1 {
+        font-size: 2rem;
+    }
+
+    .music-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
